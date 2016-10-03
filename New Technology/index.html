@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>New Technology - Vue JS</title>
+	<link rel="stylesheet" type="text/css" href="css/normalize.css">
+	<link rel="stylesheet" type="text/css" href="css/bootstrap-material-design.css">
+	<link rel="stylesheet" type="text/css" href="css/ripples.css">
+
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.0.1/vue.js"></script>
+	<script type="text/javascript" src="js/material.js"></script>
+	<script type="text/javascript" src="js/ripples.js"></script>
+	<script type="text/javascript" src="js/base.js"></script>
+</head>
+<body>
+	<div class="wrapper">
+		<div id="app">
+			<h1>App 1 - Declarative Rendering</h1>
+			<p>We can bind Vue Instance with <code>div id="app"</code> trough the 'id' of the 'div'</p>
+			<p>{{ message }}</p>
+		</div>
+
+		<div id="app2">
+			<h1>App 2 - Declarative Rendering<sup>2</sup></h1>
+			<p>These lines of code give <code>span v-bind:id="id"</code> an id trough the Vue Instance <br>
+			<code>
+				var app2 = new Vue({
+				el: "#app2",
+				data: {
+					id: 'inspect-me'
+					}
+				})
+			</code>
+			</p>
+			<span v-bind:id="id">Inspect me</span>
+		</div>
+
+		<div id="app3">
+			<h1>App 3 - Conditionals and Loops</h1>
+			<p>This example demonstrates that we can bind data to not only text and attributes, but also the structure of the DOM</p>
+			<p v-if="seen">Now you see me</p>
+		</div>
+
+		<div id="app4">
+			<h1>App 4 - Conditional and Loops<sup>2</sup></h1>
+			<p>There are quite a few other directives, each with its own special functionality. For example, the <code>v-for</code> directive can be used for displaying a list of items using the data from an Array</p>
+			<ol>
+				<li v-for="todo in todos">
+					{{ todo.text }}
+				</li>
+			</ol>
+		</div>
+
+		<div id="app5">
+			<h1>App 5 - Handling User Input</h1>
+			<p></p>
+			<p>{{ message }}</p>
+			<button v-on:click='reverseMessage'>Reverse Message</button>
+		</div>
+	</div>
+</body>
+</html>
