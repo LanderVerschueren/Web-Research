@@ -45,6 +45,29 @@ var GENERAL = {
 				}
 			}
 		})
+
+		var app6 = new Vue({
+			el: '#app6',
+			data: {
+				message: 'Hello Vue!'
+			}
+		})
+
+		Vue.component('todo-item', {
+			props: ['todo'],
+			template: '<li>{{ todo.text }}</li>'
+		})
+
+		var app7 = new Vue({
+			el: '#app7',
+			data: {
+				todos: [
+					{ text: 'Learn Javascript' },
+					{ text: 'Learn Vue' },
+					{ text: 'Build something awesome' }
+				]
+			}
+		})
 	}
 };
 
