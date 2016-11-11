@@ -1,0 +1,39 @@
+<div class="col-md-12">
+	<form class="log">
+		<fieldset>
+			<legend class="legend">Log your work</legend>
+			<div class="input">
+				<label>Vak</label>
+				<p>{{ params.vaknaam }}</p>
+			</div>
+
+			<div class="input">
+				<label>Opleidingsjaar</label>
+				<p>{{ params.jaar }}</p>
+			</div>
+
+			<div class="input">
+				<label>Periode</label>
+				<p>{{ params.periodenaam }}</p>
+			</div>
+
+			<div class="input">
+				<label>Studiepunten</label>
+				<p>{{ params.studiepunten }}</p>
+			</div>
+
+			<div class="input">
+				<label>Datum (week)</label>
+				<input type="date" id="pickDate" class="cal">
+				<span class="icon_log"><i class="fa fa-calendar"></i></span>
+			</div>
+
+			<div class="input">
+				<label>Aantal uren gewerkt</label>
+				<input class="log-input" type="text" placeholder="0" required>
+				<span class="icon_log"><i class="fa fa-clock-o"></i></span>
+			</div>
+			<button type="submit" class="submit" ng-click="log();"><i class="fa fa-long-arrow-right"></i></button>
+		</fieldset>
+	</form>
+</div>
