@@ -1,0 +1,20 @@
+<div class="col-md-12 table-responsive-vertical shadow-z-1">
+	<!-- Table starts here -->
+	<table id="table" class="table table-hover table-mc-pink table-bordered">
+		<thead>
+			<tr>
+				<th>Vaknaam</th>
+				<th>Week</th>
+				<th>Uren</th>
+			</tr>
+		</thead>
+		<tbody ng-repeat="log in logs | orderBy: ['vaknaam', 'week']">
+			<tr>
+				<td ng-if='log.extra != ""' data-title="Vaknaam">{{ log.extra }}</td>
+				<td ng-if='log.extra === ""' data-title="Vakcode">{{ log.vakcode }}</td>
+				<td data-title="Week">{{ log.week }}</td>
+				<td data-title="Uren">{{ log.uren }}</td>
+			</tr>
+		</tbody>
+	</table>
+</div>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html ng-app="workload">
+	<head>
+
+		<title>Eindopracht</title>
+
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+		<script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
+	    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+	    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
+        <script src="js/base.js"></script>	 
+        <script src="js/login.js"></script>
+        <script src="js/course.js"></script>
+        <script src="js/log.js"></script>
+        <script src="js/all.js"></script>
+
+		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+		<link rel="stylesheet" type="text/css" href="css/style2.css">
+
+	</head>
+	
+	<body ng-controller="WorkloadController as workload">
+
+		<nav class="navbar navbar-inverse navbar-static-top">
+			<div class="container">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<label class="navbar-brand brandLabel">Eindopdracht</label>
+				</div>
+				<div class="collapse navbar-collapse" id="myNavbar">
+					<ul class="nav navbar-nav">
+						<li id="home" class="active" ng-click="setPage( $event, true );"><a href="#">Home</a></li>
+						<li id="nieuw" ng-click="setPage( $event, true );" ng-show="info.loggedIn"><a href="#">Nieuwe log</a></li>
+						<li id="alle" ng-click="setPage( $event, true ); getData();" ng-show="info.loggedIn"><a href="#">Alle logs</a></li>
+					</ul>
+					<ul class="nav navbar-nav navbar-right" ng-show="info.loggedIn">
+				      <label class="navLabel"><span class="glyphicon glyphicon-user"></span> {{ info.voornaam + " " + info.achternaam }}</label>
+				      <li id="afmelden" ng-click="setPage( $event, true );"><a href="#"><span class="glyphicon glyphicon-log-out"></span> Afmelden</a></li>
+				    </ul>
+				</div>
+			</div>
+		</nav>	
+
+		<div class="container">
+			<div class="row">
+				<login-template ng-hide="info.loggedIn"></login-template>
+				<course-template ng-show="info.showCourses"></course-template>
+				<log-template ng-show="info.sentInfo"></log-template>
+				<all-template ng-show="info.allLogs"></all-template>	
+			</div>
+		</div>		
+	</body>
+</html>
