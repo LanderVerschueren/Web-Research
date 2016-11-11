@@ -15,10 +15,19 @@
 </head>
 <body>
 	<div class="wrapper">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h1>Introduction</h1>
+			</div>
+			<div class="panel-body">
+				Vue.js is a JavaScript library that helps you build web applications using the the MVVM (Model-View-ViewModel) architectural pattern.
+			</div>
+		</div>
+
 		<div id="app">
 			<div class="panel panel-default">
 				<div class="panel-heading">
-					<h1>Declarative Rendering</h1>
+					<h1>Introduction - Declarative Rendering</h1>
 				</div>
 				<div class="panel-body">
 					<p>We can bind Vue Instance with <pre>&lt;div id="app"&gt;</pre> trough the 'id' of the 'div'</p>
@@ -30,7 +39,7 @@
 		<div id="app2">
 			<div class="panel panel-default">
 				<div class="panel-heading">
-					<h1>Declarative Rendering<sup>2</sup></h1>
+					<h1>Introduction - Declarative Rendering<sup>2</sup></h1>
 				</div>
 				<div class="panel-body">
 					<p>These lines of code give <pre>span v-bind:id="id"</pre> an id trough the Vue Instance
@@ -49,7 +58,7 @@
 		<div id="app3">
 			<div class="panel panel-default">
 				<div class="panel-heading">
-					<h1>Conditionals and Loops</h1>
+					<h1>Introduction - Conditionals and Loops</h1>
 				</div>
 				<div class="panel-body">
 					<p>This example demonstrates that we can bind data to not only text and attributes, but also the structure of the DOM.</p>
@@ -64,7 +73,7 @@
 		<div id="app4">
 			<div class="panel panel-default">
 				<div class="panel-heading">
-					<h1>Conditional and Loops<sup>2</sup></h1>
+					<h1>Introduction - Conditional and Loops<sup>2</sup></h1>
 				</div>
 				<div class="panel-body">
 					<p>There are quite a few other directives, each with its own special functionality. For example, the <pre>v-for</pre> directive can be used for displaying a list of items using the data from an Array.</p>
@@ -80,7 +89,7 @@
 		<div id="app5">
 			<div class="panel panel-default">
 				<div class="panel-heading">
-					<h1>Handling User Input</h1>
+					<h1>Introduction - Handling User Input</h1>
 				</div>
 				<div class="panel-body">
 					<p>To let users interact with your app, we can use the <pre>v-on</pre> directive to attach event listeners that invoke methods on our Vue instances.</p>
@@ -93,7 +102,7 @@
 		<div id="app6">
 			<div class="panel panel-default">
 				<div class="panel-heading">
-					<h1>Handling User Input<sup>2</sup></h1>
+					<h1>Introduction - Handling User Input<sup>2</sup></h1>
 				</div>
 				<div class="panel-body">
 					<p>Vue also provides the <pre>v-model</pre> directive that makes two-way binding between form input and app state a breeze.</p>
@@ -107,7 +116,7 @@
 		<div id="app7">
 			<div class="panel panel-default">
 				<div class="panel-heading">
-					<h1>Composing with Components</h1>
+					<h1>Introduction - Composing with Components</h1>
 				</div>
 				<div class="panel-body">
 					<p>In Vue, a component is essentially a Vue instance with pre-defined options. Registering a component in Vue is straightforward.
@@ -130,8 +139,117 @@
 			</div>
 		</div>
 
-	
+		<div id="myView">
+			<div class="panel panel-default">
+				<div class="panel panel-heading">
+					<h1>Creating a View-Model</h1>
+				</div>
+				<div class="panel panel-body">
+					<p>In Vue.js, view-models are created using the <code>Vue</code> class. If you are wondering what a view-model is, you can think of it as an object that makes it very easy for you to display your models data inside a view. <br> Let&apos;s create a view!</p>
+					<p><pre rel='HTML'>&lt;div id="my_view"&gt;
+&lt;/div&gt;</pre></p>
 
+					<p>And here&apos;s the <code>model</code> (JavaScript)</p>
+					<p><pre>var myModel = {
+	name: "Ashley",
+	age: 24
+};</pre></p>		
+					<p>Now that we have a view and a model, it&apos;s time to create a view-model (a <code>Vue</code> instance) that binds both together.</p>
+					<p><pre>var myViewModel = new Vue({
+	el: '#my_view',
+	data: myModel
+});</pre></p>
+					<p>As you can see, the <code>el</code> property points to the view (you can use any CSS selector here), and the <code>data</code> property points to the model. Our view-model is now ready to be used.
+
+					To display your model&apos;s data inside the view, you should use mustache-style bindings. For example, to display the age property of your model you would add the string { { age } } inside your view. The following code snippet uses both the properties of the model.</p>
+					<p>One-way binding: {{ name }} is {{ age }} years old.</p>
+				</div>
+			</div>
+
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h1>Creating Two-Way Bindings</h1>
+				</div>
+				<div class="panel-body">
+					<p>The mustache-style binding we used in the previous example is a one-way binding. This means that it can only show the data of the model, not modify it. If you want to allow the view to edit the model you should create a two-way binding instead, using the <code>v-model</code> directive.
+
+					Let&apos;s change our view so that it contains an <code>input</code> element whose <code>v-model</code> points to the <code>name</code> property.</p>
+					<p>
+						<label for="name">Enter name:</label>
+  						<input type="text" v-model="name" id="name" name="name" />
+  						<p>Two-way binding: {{ name }} is {{ age }} years old.</p>
+					</p>
+				</div>
+			</div>
+
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h1>Using Filters</h1>
+				</div>
+				<div class="panel-body">
+					<p>
+						A filter is a function you can use inside a directive or a mustache-style binding. A filter is always preceded by a pipe symbol (&vert;). For example, if you want to display the name property in uppercase, you add "&vert; uppercase" inside the directive or binding.
+					</p>
+					<p>Two-way binding: {{ name.toUppercase }} is {{ age }} years old.</p>
+				</div>
+			</div>
+
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h1>Rendering Arrays</h1>
+				</div>
+				<div class="panel-body">
+					<p>If your model has an array, you can display the contents of that array by adding a <code>v-for</code> directive to a list&apos;s <code>&lt;li&gt;</code> element.</p>
+					<p><pre>var myModel = {
+  	name: "Ashley",
+  	age: 24,
+ 	friends: [
+    		{ name: "Bob", age: 21 },
+    		{ name: "Jane", age: 20 },
+ 		{ name: "Anna", age: 29 }
+ 	]
+};</pre></p>	
+					<p>The following code shows you how to display the <code>name</code> property of every object in the <code>friends</code> array</p>
+					<p><pre>&lt;ul&gt;
+	&lt;li v-for="friend in friends"&gt;{{ friend.name } }&lt;/li&gt;
+&lt;/ul&gt;</pre></p>
+					<p>
+						<ul>
+							<li v-for="friend in friends">{{ friend.name }}</li>
+						</ul>
+					</p>
+				</div>
+			</div>
+
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h1>Handling Events</h1>
+				</div>
+				<div class="panel-body">
+					<p>In Vue.js, if you need to handle events associated with your view, you should add event handlers inside the view-model&aops;s <code>methods</code> property. Inside all Vue.js event handlers, you can use <code>this</code> to access the items in the data model.</p>
+					<p><pre>var myViewModel = new Vue({
+	el: '#my_view',
+	data: myModel,
+
+	// A click handler inside methods
+	methods: {
+	    myClickHandler: function(e) {
+      		alert("Hello " + this.name);
+	    }
+	}
+});</pre></p>
+					<p>To associate an event handler defined in the view-model with one or more UI elements in the view, you should use the v-on directive. For example, the following view has a <code>&lt;button&gt;</code> which uses the <code>v-on</code> directive to call <code>myClickHandler</code></p>
+					<p><pre>&lt;div id="my_view"&gt;
+    Name: &lt;input type="text" v-model="name"&gt;
+    &lt;button v-on:click="myClickHandler"&gt;Say Hello&lt;/button&gt;
+&lt;/div&gt;</pre></p>
+					<p>
+						Name: <input type="text" v-model="name">
+  						<button v-on:click="myClickHandler">Say Hello</button>
+  					</p>
+				</div>
+			</div>
+		</div>
 	</div>
 </body>
 </html>
