@@ -5,23 +5,23 @@ five = require("johnny-five"),
 board, led;
 
 var alphabet = {
-    'a': '.-',    'b': '-...',  'c': '-.-.', 'd': '-..',
-    'e': '.',     'f': '..-.',  'g': '--.',  'h': '....',
-    'i': '..',    'j': '.---',  'k': '-.-',  'l': '.-..',
-    'm': '--',    'n': '-.',    'o': '---',  'p': '.--.',
-    'q': '--.-',  'r': '.-.',   's': '...',  't': '-',
-    'u': '..-',   'v': '...-',  'w': '.--',  'x': '-..-',
-    'y': '-.--',  'z': '--..',  ' ': '/',
-    '1': '.----', '2': '..---', '3': '...--', '4': '....-', 
-    '5': '.....', '6': '-....', '7': '--...', '8': '---..', 
-    '9': '----.', '0': '-----', 
+	'a': '.-',    'b': '-...',  'c': '-.-.', 'd': '-..',
+	'e': '.',     'f': '..-.',  'g': '--.',  'h': '....',
+	'i': '..',    'j': '.---',  'k': '-.-',  'l': '.-..',
+	'm': '--',    'n': '-.',    'o': '---',  'p': '.--.',
+	'q': '--.-',  'r': '.-.',   's': '...',  't': '-',
+	'u': '..-',   'v': '...-',  'w': '.--',  'x': '-..-',
+	'y': '-.--',  'z': '--..',  ' ': '/',
+	'1': '.----', '2': '..---', '3': '...--', '4': '....-', 
+	'5': '.....', '6': '-....', '7': '--...', '8': '---..', 
+	'9': '----.', '0': '-----', 
 }
 var dot = 200;
-var dash = dot * 3;
+var dash = 600;
 var ledArray = [];
 var codeArray = [];
 
-var i, j, k;
+var i, j, k, arrayCounter;
 
 /*var sequence = [{
 	method: "on",
@@ -39,8 +39,8 @@ board.on("ready", function() {
 	led = new five.Led(13);
 
 	this.repl.inject({
-    	led: led
-  	});
+		led: led
+	});
 
 });	
 
@@ -58,14 +58,14 @@ function handler (req, res) {
 			res.writeHead(200);
 			res.end(data);
 		}
-	);
+		);
 }
 
 
 //socket connection
 io.sockets.on('connection', function (socket) {
 	socket.emit('news', { hello: 'world' });
-  
+
   	// if led message received
   	socket.on('led', function (data) {
   		if(board.isReady) {    
@@ -77,6 +77,7 @@ io.sockets.on('connection', function (socket) {
   		//var morsecode = alphabet.find(data.letter);
   		ledArray = [];
   		codeArray = [];
+  		var ledCodeArray = [];
   		i = 0;
   		var message = data.letter.toLowerCase();
   		var message = message.split("");
@@ -87,83 +88,62 @@ io.sockets.on('connection', function (socket) {
   		}
 
   		for( i = 0; i < codeArray.length; i++ ) {
-  			console.log("New loop")
-  			j = 0;
+  			ledCodeArray[ i ] = new Array( ledArray.lenght );
   			k = 0;
   			ledArray = [];
   			ledArray = codeArray[ i ].split("");
-  			console.log(ledArray);
 
   			while( k < ledArray.length ) {
-	  			if ( ledArray[ k ] == '.' ) {
-	  				ledArray[ k ] = dot;
-	  			}
-	  			else {
-	  				ledArray[ k ] = dash;
-	  			}
-
-	  			k++;	
-	  		}
-
-	  		console.log(ledArray);
-
-	  		playMorse();
+  				if ( ledArray[ k ] == '.' ) {
+  					ledCodeArray[ i ][ k ] = dot;
+  				}
+  				else {
+  					ledCodeArray[ i ][ k ] = dash;
+  				}
+  				k++;	
+  			}
   		}
 
-  		/*var code = alphabet[message];
-  		var codeArray = code.split("");
-  		console.log(codeArray);
-
-  		while( i < codeArray.length ) {
-  			if ( codeArray[ i ] == '.' ) {
-  				ledArray[ i ] = dot;
-  			}
-  			else {
-  				ledArray[ i ] = dash;
-  			}
-
-  			i++;	
-  		}*/
-
-  		j = 0;
-
-  		function playMorse () {
-		   		setTimeout(function () { //  call a defined setTimeout when the loop is called
-		      		console.log(j) //  your code here  
-		      		ledOn();
-		      		if (j < ledArray.length) { //  if the counter < ledArray.length, call the loop function
-		         		j++;
-		         		playMorse();             //  ..  again which will trigger another 
-		      		}                        //  ..  setTimeout()
-		  		}, dot)
-	  		}
-
-	  	i = 0;
+  		var i = 0;
+  		var j = 0;
+  		var l = 0;
+  		var time;
 
 	  	function ledOn () { //  create a loop function
 	  		console.log("on");
-	  		console.log( ledArray[ i ] );
 	  		led.on();
    			setTimeout(function () { //  call a defined setTimeout when the loop is called
       			//led.on(); //  your code here  
-      			if (i < ledArray.length) { //  if the counter < ledArray.length, call the loop function
+      			if (l < 1) { //  if the counter < ledArray.length, call the loop function
          			ledOff();             //  ..  again which will trigger another 
-         			console.log("ledON");
       			}                        //  ..  setTimeout()
-  			}, ledArray[ i ])
-		}
+      		}, time)
+   		}
 
 		function ledOff () { //  create a loop function
-	  		console.log("off");
-	  		console.log( ledArray[ i ] );
-	  		led.off();
+			console.log("off");
+			//led.off();
    			setTimeout(function () { //  call a defined setTimeout when the loop is called
       			//led.off(); //  your code here   
-      			i++;   			
-      			if (i < ledArray.length) { //  if the counter < ledArray.length, call the loop function
+      			l++;   			
+      			if (l < 1) { //  if the counter < ledArray.length, call the loop function
          			ledOn();             //  ..  again which will trigger another 
-      			}                        //  ..  setTimeout()
-  			}, ledArray[ i ])
-		}
-  	});
+      			}                     //  ..  setTimeout()
+      			else {
+      				j++;
+      				getTime( i, j );
+      			}
+      		}, time)
+      	}
+
+      	function getTime( indexI, indexJ ) {
+      		time = ledCodeArray[ indexI ][ indexJ ];
+      		console.log(time);
+      		console.log(l);
+      		l = 0;
+      		ledOn();
+      	}
+
+      	getTime( i, j );
+    });
 });
