@@ -108,8 +108,66 @@ io.sockets.on('connection', function (socket) {
   		var j = 0;
   		var l = 0;
   		var time;
+  		var arrayLength = 0;
 
-	  	function ledOn () { //  create a loop function
+  		console.log( ledCodeArray );
+
+
+  		function ledOn () { //  create a loop function
+	  		console.log("on");
+	  		console.log( i, j );
+	  		led.on();
+   			setTimeout(function () { //  call a defined setTimeout when the loop is called
+      			if (j < ledCodeArray[ i ].length) { //  if the counter < ledArray.length, call the loop function
+         			ledOff();             //  ..  again which will trigger another 
+      			}                        //  ..  setTimeout()
+  			}, ledCodeArray[ i ][ j ])
+		}
+
+		function ledOff () { //  create a loop function
+	  		console.log("off");
+	  		console.log( i, j );
+	  		led.off();
+   			setTimeout(function () { //  call a defined setTimeout when the loop is called
+      			j++;   			
+      			if (j < ledCodeArray[ i ].length) { //  if the counter < ledArray.length, call the loop function
+         			ledOn();             //  ..  again which will trigger another 
+      			}    
+      			else {
+      				if( i < ledCodeArray.length-1 ) {
+	      				i++;
+	      				j = 0;
+	      				console.log( i, j, ledCodeArray.length);
+	      				ledOn();
+	      			}
+	      			else {
+	      				console.log("end");
+	      			}
+      			}                    //  ..  setTimeout()
+  			}, ledCodeArray[ i ][ j ])
+		}
+
+		ledOn(); 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	  	/*function ledOn () { //  create a loop function
 	  		console.log("on");
 	  		led.on();
    			setTimeout(function () { //  call a defined setTimeout when the loop is called
@@ -137,13 +195,18 @@ io.sockets.on('connection', function (socket) {
       	}
 
       	function getTime( indexI, indexJ ) {
-      		time = ledCodeArray[ indexI ][ indexJ ];
-      		console.log(time);
-      		console.log(l);
-      		l = 0;
-      		ledOn();
+      		if ( arraylength < CodeArray[ indexI ].length ) {
+	      		time = ledCodeArray[ indexI ][ indexJ ];
+	      		console.log(time);
+	      		console.log(l);
+	      		l = 0;
+      		}
+      		else {
+      			i++
+
+      		}
       	}
 
-      	getTime( i, j );
+      	getTime( i, j );*/
     });
 });
