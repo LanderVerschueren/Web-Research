@@ -69,7 +69,11 @@ io.sockets.on('connection', function (socket) {
   	// if led message received
   	socket.on('led', function (data) {
   		if(board.isReady) {    
-  			led.strobe(data.delay); 
+  			led.on(); 
+
+        board.wait(data.delay, function() {
+          led.off();
+        });
   		}
   	});
 

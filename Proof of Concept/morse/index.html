@@ -32,7 +32,7 @@
       <div class="col-md-12">
       <h4>Letter</h4>
       <p><input type="text" class="form-control" id="transMorse" name="transMorse" value="A" /></p>
-      <p><button id="translate" class="btn btn-primary">Translate letter</button></p>
+      <p><button id="translate" class="btn btn-primary">Translate</button></p>
       </div>
     </div>
     </div>
@@ -58,7 +58,6 @@
 
 	$('#translate').on('click',function(){
 		var letter = $('#transMorse').val();
-		console.log("Get value:", letter);
 		socket.emit('morse', {letter:letter});
 	});
 
